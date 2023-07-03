@@ -23,3 +23,4 @@ const collectibles = {
 collectibles.listFigures();
 // console.log(collectibles.figuresByBrand('Hot Toys'));
 // console.log(collectibles.figuresByBrand('Hot Toys'));
+
