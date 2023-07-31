@@ -4,3 +4,4 @@ test.pdf
 node_modules
 package-lock.json
 proyectoIntegrador
+*.docx
