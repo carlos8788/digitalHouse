@@ -28,7 +28,7 @@ div.top-header {
 
 header {
     background-color: #EAC926;
-    height: 235px;
+    height: 200px;
 }
 
 header div.logo {
@@ -57,37 +57,34 @@ header .form {
     height: 30px;
     
 }
-
-form .input {
-    border: none; /* Quita el borde */
-    outline: none; /* Quita el sombreado al enfocar */
-    border-radius: 5px 0 0 5px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-form button {
-    border-radius: 0 5px 5px 0;
-}
-
 .form {
     display: flex;
     width: 100%;
+    border: none;
+}
+form .input, button{
+    border: none; /* Quita el borde */
+    outline: none; /* Quita el sombreado al enfocar */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background: none;
+    font: inherit;
 }
 
 header .form .input {
     background-color: #FFF;
-    border: 1px solid #000;
     outline: none;
     color: #666;
-    padding: 2px;
+    border-radius: 5px 0 0 5px;
+    padding-left: 5px;
 }
 
 header .form .submit {
     background-color: #FFF;
-    border: 1px solid #000;
     color: #666;
-    width: 10%;
+    width: 30%;
+    border-radius: 0 5px 5px 0;
 }
 
 header div.top-header p {
@@ -103,12 +100,13 @@ div.burger-menu {
 
 div.burger-menu i {
     background-color: #0044AA;
+    
     border-radius: 5px;
     color: #FFF;
-    font-size: 20px;
+    font-size: 30px;
     height: 40px;
-    margin: 10px 0px 100px 0px;
-    padding: 10px;
+    margin: 10px 0px;
+    padding: 2px 6px;
     width: 40px;
 }
 
@@ -210,13 +208,56 @@ main section article i {
 
 @media (min-width: 370px) {
 
-    /* * {
-        background-color: rgb(214, 65, 65);
-    } */
+    /* TOP-HEADER */
     header {
         background-color: #EAC926;
-        height: 320px;
+        height: 220px;
     }
+    header div.top-header p{
+        width: 33%;
+        display: inline;
+        
+    }
+    .top-header{
+        justify-content: center;
+    }
+    
+    header .form {
+        width: none;
+        width: auto;
+        display: flex;
+        margin: auto;
+    }
+
+    .header__text p {
+        padding: 0;
+    }
+
+    div.top-header .logo, .form, .header__text{
+        width: 33%;
+    }
+
+    /* NAV MENU */
+
+    div.burger-menu {
+        display: none;
+    }
+
+    .header__nav {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .header__nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        
+    }
+    .header__nav ul li {
+        padding: 0;
+    }
+
 
 
     .main__articulo {
@@ -232,26 +273,33 @@ main section article i {
         flex-wrap: wrap;
         gap: 15px;
     }
+
+
 }
 
 @media (min-width: 769px) {
 
-    /* * {
-        background-color: rgb(130, 65, 214);
-    } */
     header {
         background-color: #EAC926;
         height: 40%;
         margin: 0;
         padding-bottom: 1px;
     }
-
-    .burger-menu {
-        display: none;
+    header .form{
+        width: 33%;
     }
 
-    .header__nav {
-        display: inline;
+    header .form button{
+        max-width: 50px;
+    }
+
+    header .form input{
+        width: 90%;
+    }
+
+    .header__nav ul {
+        gap: 20px;
+        justify-content: space-between;
     }
 
 
