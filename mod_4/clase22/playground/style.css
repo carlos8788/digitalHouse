@@ -1,0 +1,93 @@
+/********************* POSITION **********************/
+
+.primer-div {
+    position: relative; 
+    left: 20px; 
+    top: 30px; 
+    width: 200px; 
+    background-color: red; 
+}
+
+.segundo-div {
+    position: absolute; 
+    right: 30px; 
+    bottom: 20px; 
+    width: 200px; 
+    background-color: blue; 
+}
+
+
+.contenedor {
+    position: relative; 
+}
+
+.gorrito {
+    position: absolute; 
+    left: 70px; 
+    width: 120px; 
+}
+
+.gato {
+    position: relative; 
+    top: 60px; 
+}
+
+.nav-bar {
+    position: fixed; /* esto hace que la barra de navegación esté siempre visible, sin importar el scroll */
+    top: 5px; /* esto posiciona la barra de navegación a 5px del inicio superior del body */
+    width: 100%; /* esto hace que la barra de navegación ocupe todo el ancho del body */
+}
+
+
+/********************* Z-INDEX **********************/
+
+.amarillo {
+    position: relative;
+    top: 20px; 
+}
+
+.rojo {
+    position: relative;
+    z-index: 10; 
+}
+
+/********************* Transiciones **********************/
+
+.mi-elemento {
+    width: 100px;
+    height: 100px;
+    background-color: salmon;
+    transition: border-radius 450ms;
+}
+
+.mi-elemento:hover {
+    border-radius: 50%;
+}
+
+
+/********************* Animaciones **********************/
+
+.mi-elemento {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    border-radius: 100%;
+    animation-name: achicando; /* Agregar el nombre de la animación */
+    animation-duration: 1000ms; /* Agregar la duración de la animación */
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+ 
+@keyframes achicando {
+    0% {
+        background-color: salmon;
+    }
+    
+    100% {
+        background-color: peachpuff;
+        height: 100px;
+        width: 100px;
+        opacity: 0.5;
+    }
+}
+
