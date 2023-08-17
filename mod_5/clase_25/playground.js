@@ -67,3 +67,10 @@ module.exports = router
 
 // Usando rutas
 
+const express = require('express');
+const rutasSeries = require('./routes/series');
+const app = express();
+
+app.use('/series', rutasSeries);
+
+
