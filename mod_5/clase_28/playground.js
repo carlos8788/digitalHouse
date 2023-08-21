@@ -48,7 +48,7 @@ router.get('/celulares', (req, res) => {
 // const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: false }));
+app.use(express.urlencoded({ extended: false }));
 
 
 //Recuperando información de POST
@@ -57,7 +57,7 @@ app.use(express.urlencoded({extended: false }));
 // const express = require('express');
 // const router = express.Router();
 
-router.post('/ver-body', (req, res)=>{
+router.post('/ver-body', (req, res) => {
     res.send(req.body)
 })
 
@@ -74,14 +74,14 @@ app.use(methodOverride('_method'));
 //Enviando datos de un formulario mediante PUT
 
 <html>
-  <head>
-    <title>Formulario de registro</title>
-  </head>
-  <body>
-    <form action="usuarios/actualizar?_method=PUT" method="POST">
+    <head>
+        <title>Formulario de registro</title>
+    </head>
+    <body>
+        <form action="usuarios/actualizar?_method=PUT" method="POST">
 
-    </form>
-  </body>
+        </form>
+    </body>
 </html>
 
 // Vamos a tratar de crear una ruta JSON style
@@ -113,11 +113,85 @@ console.log(peliculas);
 // const routerp = express.Router();
 
 router.put('pelicula/:id', (req, res) => {
-    const id = Number(req.query.id)
+    const id = parseInt(req.params.id)
     const body = req.body
-    let pelicula = peliculas.filter(pel => pel.id === id)
+    let pelicula = peliculas.findIndex(pel => pel.id === id)
 
-    if(pelicula) {
-        
+    if (pelicula !== -1) {
+        peliculas[pelicula] = { ...peliculas[pelicula], ...body }
     }
+    res.send(peliculas)
 })
+
+router.put('/pelicula/:id', (req, res) => {
+    const id = parseInt(req.params.id)
+    const body = req.body
+
+    peliculas.forEach((peli, index) => {
+        if (peli.id === id) {
+            peliculas[index] = { ...peli, ...body }
+            console.log(peli)
+        }
+
+    })
+
+
+    res.send(peliculas)
+})
+
+// Seteando un objeto con Data de POST
+
+
+const express = require('express');
+const router = express.Router();
+
+let producto = {
+    nombre: null,
+    precio: null
+};
+
+router.post('/crear/producto', (req, res) => {
+    const { nombre, precio } = req.body
+    producto.nombre = nombre
+    producto.precio = precio
+    res.send(producto)
+})
+
+
+
+// Eliminando datos de un ARRAY
+
+let celulares = [
+    {
+        id: 1,
+        nombre: 'Motorola Moto E6 Plus',
+        precio: 14999
+    },
+    {
+        id: 2,
+        nombre: 'Motorola Moto G7',
+        precio: 19999
+    },
+    {
+        id: 3,
+        nombre: 'Alcatel 5033A',
+        precio: 6999
+    },
+    {
+        id: 4,
+        nombre: 'Samsung Galaxy A50',
+        precio: 33499
+    }
+];
+
+const express = require('express');
+const router = express.Router();
+
+router.delete('/celular/:id', (req, res) => {
+    const id = parseInt(req.params.id)
+    celulares  = celulares.filter(cel => cel.id !== id)
+    res.send(celulares )
+})
+
+
+//
