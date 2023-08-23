@@ -78,3 +78,39 @@ const redirigir = (req, res, next) => {
 }
 
 router.get('/ruta-en-desuso', redirigir, OldController.index); //Agregá la función redirigir como segundo parámetro de tu ruta
+
+// Validaciones
+
+const express = require('express');
+const router = express.Router();
+const { check, validationResult, body } = require('express-validator');
+
+const UsuarioController = require('../controllers/UsuarioController');
+
+const lista = [
+    check('email').isEmail(),
+    check('password').isLength({ min: 6 })
+]
+
+router.post('/registro', [...lista],  UsuarioController.registro);
+
+// Express Validator avanzado
+
+const express = require('express');
+const router = express.Router();
+const { validationResult } = require('express-validator');
+
+const userController = {
+  login: (req, res) => {
+    const errores = validationResult(req);
+
+    //Chequear los errores acá, redirigir si hay errores
+    if (!errores.isEmpty()){
+      return res.render('login', {error: errores.array()})
+    }
+
+    if (req.body.name == 'admin' && req.body.pass == 123) {
+    	res.redirect('/dashboard');
+    }
+  }  
+}
