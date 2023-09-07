@@ -84,3 +84,5 @@ let celulares = [
 
 const listaCelulares = celulares.filter(cel => cel.id !== id)
 console.log(listaCelulares);
+
+
