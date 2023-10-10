@@ -8,12 +8,12 @@ module.exports = {
             .then(genres => {
                 res.json(
                     {
-                        meta:{
+                        meta: {
                             status: 200,
                             total: genres.length,
-                            url:"api/genres"
+                            url: "api/genres"
                         },
-                        data:{
+                        data: {
                             genres
                         }
                     }
@@ -23,15 +23,26 @@ module.exports = {
     'detail': (req, res) => {
         db.Genre.findByPk(req.params.id)
             .then(genre => {
-                res.json({
-                    meta:{
-                        status: 200,
-                        url:`api/genres/detail/${req.params.id}`
-                    },
-                    data:{
-                        genre
-                    }
-                });
+                if (genre) {
+                    res.json({
+                        meta: {
+                            status: 200,
+                            url: `api/genres/detail/${req.params.id}`
+                        },
+                        data: {
+                            genre
+                        }
+                    });
+                }
+                else{
+                    res.status(404).json({
+                        meta: {
+                            status: 404,
+                            message: "No such Genre"
+                        }
+                    });
+                }
+
             });
     }
 
