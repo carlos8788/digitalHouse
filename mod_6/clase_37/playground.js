@@ -95,6 +95,9 @@ const Usuario = sequelize.define('usuarios',{
 
 module.exports = Usuario;
 
+
+// findAll, findByPk, findOne //////////////////////////////////
+
 /**
  * findAll
 ﻿Para esta ocasión, debemos consultar nuestra base de datos, 
@@ -142,3 +145,94 @@ let controller = {
         })
     }
 }
+
+/**
+ * findOne
+Necesitamos buscar un usuario, pero no tenemos la lógica creada. Hicimos una parte, 
+pero faltan ciertas cosas, en particular, saber que método vamos a usar y cómo implementarlo.
+
+Nuestra tarea, ahora, será buscar un usuario que se identifica con el nombre: John.
+
+¿Qué método podemos utilizar?
+ */
+const db = require('../database/models');
+
+db.Usuario.findOne({
+    where: {
+        nombre: 'John'
+    }
+}).then((resultado) => {
+    if(resultado) {
+        console.log(resultado.dataValues); 
+    } else {
+        console.log('Usuario no encontrado');
+    }
+});
+
+
+
+// Where y operadores //////////////////////////////////////
+
+
+//  * Trayendo todas las películas
+/**
+
+A partir de nuestro modelo Peliculas vamos a recuperar todas las 
+películas de nuestra base de datos y hacer console log del resultado.
+
+Para esto podemos usar el método findAll del modelo Peliculas. Recordemos que este método es asincrónico.
+ */
+
+const Peliculas = require('model/peliculas.js');
+
+Peliculas.findAll().then(resultado => console.log(resultado))
+
+/**
+ * 
+ * Trayendo pelis por ID
+ * 
+A partir de nuestro modelo Peliculas vamos a recuperar la película con el id 1.
+
+Sequelize nos ofrece el método findByPk que recupera un elemento de la base en función de su primary key. Podemos usar este método a partir de nuestro objeto Peliculas.
+
+Tengamos en cuenta que este método es asincrónico, por lo que será necesario trabajar con promises.
+ */
+
+const Peliculas = require('model/peliculas.js');
+
+Peliculas.findByPk(1).then(resultado => console.log(resultado))
+
+/**
+ * Trayendo productos ordenados
+ * 
+ * En este ejercicio el objetivo va a ser traer todos los productos ordenados por precio, de menor a mayor.
+
+Recordemos que dentro del método findAll podemos pasar un JSON que tenga como clave la palabra order y cuyo 
+valor sea un array indicando sobre qué columna o columnas vamos a ordenar y qué tipo de ordenamiento va a ser: ASC o DESC.
+ */
+
+// Order y Limit ////////////////////////////////
+const Producto = require('model/productos.js');
+
+Producto.findAll({
+	order:[["precio","ASC"]]
+}).then(productos => {
+	console.log(productos)
+});
+
+/**
+ * Paginando resultados
+Cuando devolvemos al usuario un listado, por lo general, es recomendable ir 
+paginando esos resultados para no traer tanta información junta de la base de datos.
+
+En este ejemplo, estamos ejecutando un findAll sobre el modelo Producto. El 
+objetivo va a ser pasar un parámetro al método findAll para ejecutar un limit de MySQL y traer tan solo los primeros 5 productos.
+ */
+
+const Producto = require('model/productos.js');
+
+Producto.findAll({
+	limit:5
+}).then(productos => {
+	console.log(productos)
+});
