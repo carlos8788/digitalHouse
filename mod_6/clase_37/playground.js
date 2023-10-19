@@ -30,7 +30,8 @@ que buscarProducto falle. Dentro del método catch vamos a agregar un console lo
 
 buscarProducto(1)
     .then(producto => {
-    console.log(producto)})
+        console.log(producto)
+    })
     .catch(error => console.log(error))
 
 
@@ -52,16 +53,16 @@ const Sequelize = require('sequelize');
 const sequelize = require('../database');
 
 const Usuario = sequelize.define('usuarios',
-	{
-		nombre:Sequelize.STRING,
-		email:Sequelize.STRING,
-		password:Sequelize.STRING
-	}
-	,
-	{
+    {
+        nombre: Sequelize.STRING,
+        email: Sequelize.STRING,
+        password: Sequelize.STRING
+    }
+    ,
+    {
 
-		tableName: 'usuarios'	//Tu código aquí
-	}
+        tableName: 'usuarios'	//Tu código aquí
+    }
 );
 
 module.exports = Usuario;
@@ -83,9 +84,9 @@ aclarar que no tenemos las columnas created_at o updated_at. Nuestro objetivo va
  */
 
 const Sequelize = require('sequelize');
-const sequelize = require('../database'); 
+const sequelize = require('../database');
 
-const Usuario = sequelize.define('usuarios',{
+const Usuario = sequelize.define('usuarios', {
     nombre: Sequelize.STRING,
     email: Sequelize.STRING,
     password: Sequelize.STRING,
@@ -100,7 +101,7 @@ module.exports = Usuario;
 
 /**
  * findAll
-﻿Para esta ocasión, debemos consultar nuestra base de datos, 
+ Para esta ocasión, debemos consultar nuestra base de datos, 
 pero con un único detalle: lo vamos a hacer a través de Sequelize.
 
 Primero debemos requerir los modelos, que allí es donde se encuentra 
@@ -162,8 +163,8 @@ db.Usuario.findOne({
         nombre: 'John'
     }
 }).then((resultado) => {
-    if(resultado) {
-        console.log(resultado.dataValues); 
+    if (resultado) {
+        console.log(resultado.dataValues);
     } else {
         console.log('Usuario no encontrado');
     }
@@ -215,9 +216,9 @@ valor sea un array indicando sobre qué columna o columnas vamos a ordenar y qu�
 const Producto = require('model/productos.js');
 
 Producto.findAll({
-	order:[["precio","ASC"]]
+    order: [["precio", "ASC"]]
 }).then(productos => {
-	console.log(productos)
+    console.log(productos)
 });
 
 /**
@@ -232,7 +233,173 @@ objetivo va a ser pasar un parámetro al método findAll para ejecutar un limit 
 const Producto = require('model/productos.js');
 
 Producto.findAll({
-	limit:5
+    limit: 5
 }).then(productos => {
-	console.log(productos)
+    console.log(productos)
 });
+
+// ****************************************************************
+//  * * * * * * * * * * * Desafío * * * * * * * * * * * * * * * * *
+// ****************************************************************
+
+/**
+ * Nuestro cliente estrella IbeiZon, ha solicitado nuestra ayuda para resolver un par 
+ * de requerimientos técnicos con su base de datos. Nos piden explícitamente que 
+ * trabajemos con el ORM Sequelize para consultar una serie de datos específicos que están necesitando.
+
+
+Para esto, asumiendo que ellos ya tienen gran parte de su aplicación montada en Express, 
+nos solicitan que les demos una mano creando el primer modelo de Sequelize que represente 
+la tabla productos, la cual posee solamente las siguientes columnas:
+
+
+id
+
+nombre (VARCHAR(200))
+
+descripcion (TEXT)
+
+precio (DECIMAL)
+
+
+Nuestra misión será entonces completar el archivo del modelo llamado product.js que vemos a continuación:
+ */
+
+
+'use strict';
+
+module.exports = (sequelize, DataTypes) => {
+    const product = sequelize.define('Product', {
+        id: DataTypes.INTEGER,
+        nombre: DataTypes.STRING(200),
+        descripcion: DataTypes.STRING,
+        precio: DataTypes.DECIMAL
+    }, {
+        timestamps: false,
+        tableName: 'productos'
+    });
+    return product;
+};
+
+/**
+ * Ahora que logramos crear el primer modelo, llegó la hora de 
+ * requerirlo en el controlador de productos (productsController.js). 
+
+
+Tengamos presente que la estructura del proyecto es la siguiente: 
+
+  
+
+Debemos completar el archivo productsController.js:
+ * 
+ */
+
+const db = require('../database/models');
+
+const controller = {
+    index: (req, res) => {
+        db.Product.findAll().then(
+            response => {
+                res.send(response)
+            }
+        )
+    }
+}
+
+module.exports = controller;
+
+
+/**
+ * Ahora nuestro cliente nos solicita buscar un producto a partir de su id, 
+ * teniendo en cuenta que el id buscado viajará en la ruta así: /productos/3. 
+ * Lo anterior significa que deberemos entonces mostrar solo la información del producto con id 3.
+
+
+Debemos completar el código faltante en el archivo productsController.js:
+ */
+
+
+
+const db = require('../database/models');
+
+const controller = {
+    index: (req, res) => {
+        db.Product
+            .findAll()
+            .then(products => {
+                return res.send(products);
+            })
+            .catch(err => {
+                return res.send(err)
+            })
+    },
+    porId: (req, res) => {
+        db.Product.findByPk(req.params.id).then(resultado => {
+            res.send(resultado)
+        })
+            .catch(error => res.send(error))
+    }
+}
+
+
+
+/**
+ * Para finalizar, nuestro cliente —bastante satisfecho— nos solicita un reporte sencillo. 
+
+
+Quiere consultar todos los productos en la base de datos que tengan un precio mayor
+ o igual a 50000, ordenar los resultados por nombre de manera ascendente y limitar 
+ la búsqueda a los primeros 10.
+
+
+Debemos completar el código faltante en el archivo productsController.js:
+ * 
+ */
+
+const db = require('../database/models');
+const Op = db.Sequelize.Op;
+
+const controller = {
+   index: (req, res) => {
+      db.Product
+         .findAll()
+         .then(productos => {
+            res.send(productos);
+         })
+         .catch(err => {
+            res.send(err)
+         })
+   },
+
+   porId: (req, res) => {
+      db.Product
+         .findByPk(req.params.id)
+         .then(producto => {
+            res.send(producto);
+         })
+         .catch(err => {
+            res.send(err)
+         })
+   },
+   porPrecio: (req, res) => {
+      db.Product
+         .findAll({
+            where: {
+               precio: { [Op.gte]: 50000 }
+            },
+            order: [["nombre", "ASC"]],
+            limit: 10
+
+         })
+         .then(producto => {
+            res.send(producto);
+         })
+         .catch(err => {
+            res.send(err)
+         })
+   },
+}
+
+module.exports = controller;
+
+
