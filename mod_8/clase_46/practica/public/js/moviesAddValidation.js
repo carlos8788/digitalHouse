@@ -1,6 +1,6 @@
 window.onload = function(){
-    let titulo = document.querySelector('.moviesAddTitulo')
-    let formulario = document.querySelector('#formulario');
+    let titulo = document.querySelector('#title')
+    let formulario = document.querySelector('form');
     let article = document.querySelector('article');
     titulo.innerHTML = 'AGREGAR PELÍCULA';
     titulo.classList.add('titulo');
@@ -9,8 +9,15 @@ window.onload = function(){
 
 //------DESDE AQUÍ CONTINÚE CON LAS VALIDACIONES DEL FORMULARIO //
 //-------------------DE REGISTRO DE PELÍCULAS------------------//    
+    // titulo.addEventListener('focus', () => {
+    //     console.log('first')
+    // })
+    titulo.focus();
 
-
-
+    formulario.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const inputs = Object.fromEntries(new FormData(formulario))
+        console.log(inputs);
+    })
 
 }

@@ -19,7 +19,7 @@
             <ul class="errores"></ul>
             <form class="form" action="/movies/create" method="POST">
                 <label for="title">Titulo </label>
-                <div><input type="text" name="title" id="title" ></div>
+                <div><input type="text" name="title" id="title" onfocus="1"></div>
                 <label for="rating">Calificación </label>
                 <div><input type="number" name="rating" id="rating" placeholder="Indicar valor entre 0 y 10"> </div>
                 <label for="awards">Premios </label>
@@ -44,5 +44,6 @@
             </form>
         </article>
     </section>
+    <script src="/js/moviesAddValidation.js"></script>
 </body>
 </html>
