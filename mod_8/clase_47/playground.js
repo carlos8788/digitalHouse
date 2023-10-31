@@ -16,3 +16,24 @@ fetch('https://api.chucknorris.io/jokes/random')
     .then(response => response.json())
     .then(data => console.log(data))
 
+/**
+ * Local storage
+Tenemos que capturar el item de local storage con el nombre "id", que sabemos se creó en otro script 
+desarrollado por un compañero, e imprimirlo en el <h1> con id "idValue".
+
+Para esto tenemos que:
+
+Guardar el valor del item "id" en la variable "id".
+Capturar, en la variable idValue, el <h1> con id idValue.
+Asignarle al texto del <h1> el valor de la variable id.
+ */
+
+window.addEventListener('load', function(){
+    
+    let id = localStorage.getItem('id')
+
+    let idValue = document.querySelector('#idValue')
+
+    idValue.innerHTML = id
+
+})
