@@ -1,11 +1,11 @@
 const list = document.querySelector("ul");
 
-let datos = {};
+let info = ''
 
 fetch('https://swapi.dev/api/people')
-    .then(response => response.json())
-    .then(data => datos = data)
-    .then(console.log(datos))
-
-
-
+  .then(response => response.json())
+  .then(data => {
+    // log
+    data.results.forEach(item => info += `<li>${item.name}/${item.birth_year}</li>`);
+    list.innerHTML = info
+  })
