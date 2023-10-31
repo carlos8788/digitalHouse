@@ -28,12 +28,26 @@ Capturar, en la variable idValue, el <h1> con id idValue.
 Asignarle al texto del <h1> el valor de la variable id.
  */
 
-window.addEventListener('load', function(){
-    
+window.addEventListener('load', function () {
+
     let id = localStorage.getItem('id')
 
     let idValue = document.querySelector('#idValue')
 
     idValue.innerHTML = id
 
+})
+
+/**
+ * Session storage
+Nos piden que creemos en sessionStorage un item con el nombre "bgColor" con el valor 
+"red" para que desde otro script puedan cambiar el color del body. Además, nos piden
+ que eliminemos el item "font".
+ */
+
+window.addEventListener('load', function () {
+
+    localStorage.setItem('bgColor', 'red')
+    localStorage.removeItem('font')
+    //
 })
