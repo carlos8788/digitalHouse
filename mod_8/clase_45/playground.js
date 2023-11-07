@@ -194,3 +194,43 @@ window.addEventListener('load', function () {
 
 
 
+/**
+ * No nos gusta la letra "x"
+Tenemos un documento HTML dentro del cual no queremos permitir que 
+una persona presione la tecla "x". Y, si esto sucediera, 
+nos gustaría que el <body> cambie el color de fondo de blanco a naranja.
+ */
+
+// completa el código
+window.addEventListener("keypress", function (e) {
+    let key = e.key;
+    const body = document.querySelector("body");
+
+    if (key === 'x') {
+        body.style.backgroundColor = "orange";
+    }
+})
+
+
+/**
+ * ¡Evitemos que esto se desenlace!
+Tenemos un enlace <a> dentro del HTML que en su atributo href tiene una URL a la que no queremos acceder.
+ Por lo tanto, queremos que al dar clic sobre ese enlace evitemos ir a dicha URL y que, además,
+  se cambie el color del texto de negro a rojo. Ah, y también queremos que el texto del enlace
+  diga: "este enlace no te llevará a ningún lado".
+ */
+
+
+window.addEventListener('load', function () {
+
+    const specialAnchor = document.querySelector("a");
+
+    specialAnchor.addEventListener('click', function (event) {
+        event.preventDefault()
+        this.href = '#'
+        this.style.color = 'red'
+        this.innerText = 'este enlace no te llevará a ningún lado'
+    })
+
+})
+
