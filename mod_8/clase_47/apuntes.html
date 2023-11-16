@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <ul>
 
     </ul>
-    <script src="apuntes.js"></script>
+    <!-- <script src="apuntes.js"></script> -->
+    <script>
+        const list = document.querySelector("ul");
+
+        fetch('https://swapi.dev/api/people')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const characters = data.results
+                for (let i = 0; i < characters.length; i++) {
+                    list.innerHTML += '<li>' + characters[i].name + ' / ' + '</li>' + characters[i].birth_year
+                }
+            })
+    </script>
 </body>
+
 </html>
