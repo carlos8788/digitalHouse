@@ -52,3 +52,121 @@ window.addEventListener('load', function () {
     //
 })
 
+/**
+ * En Digital House somos algo fanáticos de la saga de Star Wars y queremos que el mundo lo sepa. Por eso, queremos consumir una API (https://swapi.dev/api/people) que nos provee de los personajes principales de la saga. 
+
+
+Al consumir esta API, la misma nos provee la información en un objeto con las propiedades:
+
+
+{
+
+    "count": 82, 
+
+    "results": [] // acá vienen los personajes
+
+}
+
+
+En el array de personajes, cada personaje es un objeto literal con las siguientes propiedades:
+
+
+{
+
+     "name": "Luke Skywalker", 
+
+     "eye_color": "blue", 
+
+     "birth_year": "19BBY", 
+
+     "gender": "male", 
+
+}
+
+
+Lo que deseamos es mostrar en el documento HTML un listado
+de personajes en donde cada uno tenga el nombre (name) 
+y el año de nacimiento (birth_year). Algo así:
+
+
+Luke Skywalker / 19BBY
+
+
+Completemos el siguiente código:
+ */
+
+const list = document.querySelector("ul");
+
+fetch('https://swapi.dev/api/people')
+    .then(response => response.json())
+    .then(data => {
+        const characters = data.results;
+        for (let i = 0; i < characters.length; i++) {
+
+            list.innerHTML += "<li>" + characters[i].name + " / " + characters[i].birth_year + "</li>"
+        }
+    })
+/**
+ * ¡Saludando a nuestros visitantes!
+Nos gustaría personalizar un mensaje de bienvenida en nuestra página web.
+
+
+Queremos que en la etiqueta <h2> se cargue el siguiente texto: 
+"Hola visitante", si es que no hay información del visitante en 
+el almacenamiento local del navegador. O que, en vez de la 
+palabra “visitante”, se muestre el nombre de la persona 
+que está en el almacenamiento local.
+
+
+Para esto, dentro del almacenamiento local del navegador, 
+nos indican que debemos preguntar por la propiedad "user" 
+que es la que guarda el nombre de la persona.
+
+
+Completemos el siguiente código:
+ */
+
+// completa el código
+window.addEventListener('load', function () {
+
+    const h2 = document.querySelector("h2");
+
+    if (localStorage.getItem("user")) {
+        h2.innerText = "Hola " + localStorage.getItem("user");
+    } else {
+        h2.innerText = "Hola visitante";
+    }
+})
+/**
+ * Recordando a la persona que nos visita
+La anterior funcionalidad quedó excelente, pero
+ ahora queremos darle la oportunidad a la persona que 
+ nos visita de que sea ella quien almacene sus datos.
+
+
+Para ello dispusimos de un botón en nuestro documento 
+que, al hacerle clic, deberá guardar la información del 
+usuario, la cual está almacenada en una variable 
+llamada userInfo (que es un objeto literal) dentro 
+del almacenamiento local, en una propiedad llamada user. 
+
+
+Pero ATENCIÓN, la información solamente deberá ser 
+guardada en el escenario donde NO EXISTA.
+
+
+Nuestra misión será completar el siguiente código:
+ */
+
+
+// completa el código
+window.addEventListener('load', function () {
+    const button = document.querySelector("button");
+    const h2 = document.querySelector("h2");
+
+    button.addEventListener("click", function () {
+        if (!localStorage.getItem("user")) {
+            localStorage.setItem("user", JSON.stringify(userInfo))
+        }
+    })
+});
